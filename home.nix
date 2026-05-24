@@ -37,6 +37,8 @@
     fd
     gcc
     lazygit
+    grim
+    slurp
   ];
 
   # ── Shell ─────────────────────────────────────────────────────────────────
@@ -424,6 +426,9 @@
       bindl = , XF86AudioPause, exec, playerctl play-pause
       bindl = , XF86AudioPlay,  exec, playerctl play-pause
       bindl = , XF86AudioPrev,  exec, playerctl previous
+
+      bind = , Print,          exec, mkdir -p ~/Pictures/screenshots && grim ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
+      bind = $mainMod, Print,  exec, mkdir -p ~/Pictures/screenshots && grim -g "$(slurp)" ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
 
     '';
   };
