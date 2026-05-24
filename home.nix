@@ -32,6 +32,11 @@
     swaybg
     claude-code
     fastfetch
+    neovim
+    ripgrep
+    fd
+    gcc
+    lazygit
   ];
 
   # ── Shell ─────────────────────────────────────────────────────────────────
