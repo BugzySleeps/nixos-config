@@ -31,7 +31,14 @@
     jetbrains-mono
     swaybg
     claude-code
+    fastfetch
   ];
+
+  # ── Shell ─────────────────────────────────────────────────────────────────
+  programs.bash = {
+    enable = true;
+    initExtra = "fastfetch";
+  };
 
   # ── Git ───────────────────────────────────────────────────────────────────
   programs.git = {
@@ -48,6 +55,46 @@
     enable = true;
     settings = {
       background_opacity = "0.5";
+
+      # Cherry blossom palette — matches wallpaper + Hyprland border pinks
+      background           = "#0c0c0c";
+      foreground           = "#e0d0d8";
+      cursor               = "#ff3c82";
+      cursor_text_color    = "#0c0c0c";
+      selection_background = "#c4006a";
+      selection_foreground = "#e0d0d8";
+
+      # Black
+      color0  = "#0c0c0c";
+      color8  = "#3d1a27";
+
+      # Red → deep blossom pink
+      color1  = "#c4006a";
+      color9  = "#ff3c82";
+
+      # Green → warm rose
+      color2  = "#a06080";
+      color10 = "#d090a8";
+
+      # Yellow → blush
+      color3  = "#c87090";
+      color11 = "#f0a8c0";
+
+      # Blue → dusk purple
+      color4  = "#7060a0";
+      color12 = "#9080c0";
+
+      # Magenta → hot pink
+      color5  = "#ff3c82";
+      color13 = "#ff80b0";
+
+      # Cyan → mauve
+      color6  = "#9060a0";
+      color14 = "#c090c8";
+
+      # White
+      color7  = "#c8b8c0";
+      color15 = "#ece0e8";
     };
   };
 
