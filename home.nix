@@ -15,7 +15,19 @@
     firefox
     kdePackages.dolphin
     kitty
+    unzip
+    unrar
     waybar
+    kew
+    nodejs
+    pkg-config
+    openssl
+    libimobiledevice
+    usbmuxd
+    glib
+    gtk3
+    webkitgtk_4_1
+    gsettings-desktop-schemas
     vim
     wget
     git
@@ -42,6 +54,9 @@
     grim
     slurp
     appimage-run
+    usbmuxd
+    openssl
+    python3
   ];
 
   # ── Shell ─────────────────────────────────────────────────────────────────
