@@ -13,6 +13,7 @@
 
   home.packages = with pkgs; [
     firefox
+    wl-clipboard
     kdePackages.dolphin
     kitty
     unzip
@@ -81,45 +82,29 @@
     settings = {
       background_opacity = "0.5";
 
-      # Cherry blossom palette — matches wallpaper + Hyprland border pinks
-      background           = "#0c0c0c";
-      foreground           = "#e0d0d8";
-      cursor               = "#ff3c82";
-      cursor_text_color    = "#0c0c0c";
-      selection_background = "#c4006a";
-      selection_foreground = "#e0d0d8";
+      background           = "#0d0d0d";
+      foreground           = "#e0e0e0";
+      cursor               = "#ffffff";
+      cursor_text_color    = "#0d0d0d";
+      selection_background = "#3a3a3a";
+      selection_foreground = "#e0e0e0";
 
-      # Black
-      color0  = "#0c0c0c";
-      color8  = "#3d1a27";
-
-      # Red → deep blossom pink
-      color1  = "#c4006a";
-      color9  = "#ff3c82";
-
-      # Green → warm rose
-      color2  = "#a06080";
-      color10 = "#d090a8";
-
-      # Yellow → blush
-      color3  = "#c87090";
-      color11 = "#f0a8c0";
-
-      # Blue → dusk purple
-      color4  = "#7060a0";
-      color12 = "#9080c0";
-
-      # Magenta → hot pink
-      color5  = "#ff3c82";
-      color13 = "#ff80b0";
-
-      # Cyan → mauve
-      color6  = "#9060a0";
-      color14 = "#c090c8";
-
-      # White
-      color7  = "#c8b8c0";
-      color15 = "#ece0e8";
+      color0  = "#0d0d0d";
+      color8  = "#3a3a3a";
+      color1  = "#888888";
+      color9  = "#aaaaaa";
+      color2  = "#666666";
+      color10 = "#888888";
+      color3  = "#999999";
+      color11 = "#bbbbbb";
+      color4  = "#555555";
+      color12 = "#777777";
+      color5  = "#888888";
+      color13 = "#aaaaaa";
+      color6  = "#777777";
+      color14 = "#999999";
+      color7  = "#cccccc";
+      color15 = "#e8e8e8";
     };
   };
 
@@ -146,8 +131,8 @@
       };
 
       clock = {
-        format = " {:%H:%M}";
-        format-alt = " {:%a, %b %d}";
+        format = "{:%H:%M}";
+        format-alt = "{:%a, %b %d}";
         tooltip-format = "<tt>{calendar}</tt>";
       };
 
@@ -211,9 +196,9 @@
       .modules-left,
       .modules-center,
       .modules-right {
-          background: rgba(20, 20, 28, 1);
-          border-radius: 12px;
-          padding: 0 8px;
+          background: rgba(13, 13, 13, 0.92);
+          border-radius: 0;
+          padding: 0 4px;
           margin: 4px 0;
       }
 
@@ -224,55 +209,55 @@
       #pulseaudio,
       #network,
       #battery {
-          color: #cdd6f4;
-          padding: 0 8px;
-          margin: 2px 1px;
-          border-radius: 8px;
+          color: #cccccc;
+          padding: 0 6px;
+          margin: 2px 0;
+          border-radius: 0;
           transition: background 0.2s ease, color 0.2s ease;
       }
 
       #workspaces button {
-          color: #6c7086;
-          padding: 0 6px;
-          border-radius: 8px;
+          color: #555555;
+          padding: 0 4px;
+          border-radius: 0;
           transition: all 0.15s ease;
           background: transparent;
       }
 
       #workspaces button.active {
-          color: #cba6f7;
-          background: rgba(203, 166, 247, 0.15);
+          color: #e8e8e8;
+          background: rgba(232, 232, 232, 0.12);
       }
 
       #workspaces button:hover {
-          color: #cdd6f4;
-          background: rgba(255,255,255,0.08);
+          color: #cccccc;
+          background: rgba(255, 255, 255, 0.06);
       }
 
       #clock {
-          color: #89dceb;
+          color: #e8e8e8;
           font-weight: 600;
           letter-spacing: 0.04em;
       }
 
-      #clock:hover { background: rgba(137, 220, 235, 0.1); }
+      #clock:hover { background: rgba(255, 255, 255, 0.06); }
 
-      #cpu { color: #a6e3a1; }
-      #cpu.warning { color: #f9e2af; }
-      #cpu.critical { color: #f38ba8; animation: pulse 1s infinite; }
+      #cpu { color: #aaaaaa; }
+      #cpu.warning { color: #888888; }
+      #cpu.critical { color: #cccccc; animation: pulse 1s infinite; }
 
-      #memory { color: #89b4fa; }
+      #memory { color: #aaaaaa; }
 
-      #pulseaudio { color: #f5c2e7; }
-      #pulseaudio.muted { color: #585b70; }
+      #pulseaudio { color: #aaaaaa; }
+      #pulseaudio.muted { color: #444444; }
 
-      #network { color: #94e2d5; }
-      #network.disconnected { color: #f38ba8; }
+      #network { color: #aaaaaa; }
+      #network.disconnected { color: #555555; }
 
-      #battery { color: #a6e3a1; }
-      #battery.warning { color: #f9e2af; }
-      #battery.critical { color: #f38ba8; }
-      #battery.charging { color: #a6e3a1; }
+      #battery { color: #aaaaaa; }
+      #battery.warning { color: #888888; }
+      #battery.critical { color: #cccccc; }
+      #battery.charging { color: #e8e8e8; }
 
       @keyframes pulse {
           0%   { opacity: 1; }
@@ -303,15 +288,15 @@
           gaps_in = 5
           gaps_out = 20
           border_size = 2
-          col.active_border = rgba(ff3c82ee) rgba(c4006aee) 45deg
-          col.inactive_border = rgba(3d1a27aa)
+          col.active_border = rgba(e8e8e8ee)
+          col.inactive_border = rgba(2a2a2aaa)
           resize_on_border = false
           allow_tearing = false
           layout = dwindle
       }
 
       decoration {
-          rounding = 10
+          rounding = 0
           rounding_power = 2
           active_opacity = 1
           inactive_opacity = 1
