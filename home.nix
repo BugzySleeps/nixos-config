@@ -13,6 +13,10 @@
 
   home.packages = with pkgs; [
     firefox
+    vscode
+    blender
+    obs-studio
+    godot
     wl-clipboard
     kdePackages.dolphin
     kitty
