@@ -442,4 +442,116 @@
 
     '';
   };
+
+  # ── MangoWC ───────────────────────────────────────────────────────────────
+  xdg.configFile."mango/config.conf".text = ''
+    monitor=,preferred,auto,auto
+
+    exec-once=waybar
+    exec-once=swaybg -i /home/bugzy/Pictures/wallpapers/nixos.png -m fill
+
+    env=XCURSOR_THEME,Bibata-Modern-Classic
+    env=XCURSOR_SIZE,24
+
+    general {
+        gaps_in=5
+        gaps_out=20
+        border_width=2
+        active_border_color=#e8e8e8
+        inactive_border_color=#2a2a2a
+    }
+
+    decoration {
+        rounding=0
+        blur {
+            enabled=true
+            size=3
+            passes=1
+        }
+        shadow {
+            enabled=true
+            range=4
+            color=#1a1a1a
+        }
+    }
+
+    animations {
+        enabled=true
+    }
+
+    input {
+        kb_layout=us
+        follow_mouse=1
+        sensitivity=0
+        touchpad {
+            natural_scroll=false
+        }
+    }
+
+    $mainMod=SUPER
+
+    bind=$mainMod,q,spawn,kitty
+    bind=$mainMod,c,killactive
+    bind=$mainMod,m,quit
+    bind=$mainMod,e,spawn,dolphin
+    bind=$mainMod,v,togglefloating
+    bind=$mainMod,d,spawn,rofi -show drun
+    bind=$mainMod,f,fullscreen
+
+    bind=$mainMod,left,movefocus,l
+    bind=$mainMod,right,movefocus,r
+    bind=$mainMod,up,movefocus,u
+    bind=$mainMod,down,movefocus,d
+
+    bind=$mainMod SHIFT,t,setlayout,master
+    bind=$mainMod SHIFT,g,setlayout,grid
+    bind=$mainMod SHIFT,m,setlayout,monocle
+    bind=$mainMod SHIFT,d,setlayout,deck
+
+    bind=$mainMod,1,workspace,1
+    bind=$mainMod,2,workspace,2
+    bind=$mainMod,3,workspace,3
+    bind=$mainMod,4,workspace,4
+    bind=$mainMod,5,workspace,5
+    bind=$mainMod,6,workspace,6
+    bind=$mainMod,7,workspace,7
+    bind=$mainMod,8,workspace,8
+    bind=$mainMod,9,workspace,9
+    bind=$mainMod,0,workspace,10
+
+    bind=$mainMod SHIFT,1,movetoworkspace,1
+    bind=$mainMod SHIFT,2,movetoworkspace,2
+    bind=$mainMod SHIFT,3,movetoworkspace,3
+    bind=$mainMod SHIFT,4,movetoworkspace,4
+    bind=$mainMod SHIFT,5,movetoworkspace,5
+    bind=$mainMod SHIFT,6,movetoworkspace,6
+    bind=$mainMod SHIFT,7,movetoworkspace,7
+    bind=$mainMod SHIFT,8,movetoworkspace,8
+    bind=$mainMod SHIFT,9,movetoworkspace,9
+    bind=$mainMod SHIFT,0,movetoworkspace,10
+
+    bind=$mainMod,s,togglespecialworkspace,magic
+    bind=$mainMod SHIFT,s,movetoworkspace,special:magic
+
+    bind=$mainMod,mouse_down,workspace,e+1
+    bind=$mainMod,mouse_up,workspace,e-1
+
+    mousebind=$mainMod,btn_left,moveresize,curmove
+    mousebind=$mainMod,btn_right,moveresize,curresize
+
+    bindel=,XF86AudioRaiseVolume,exec,wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+    bindel=,XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+    bindel=,XF86AudioMute,exec,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+    bindel=,XF86AudioMicMute,exec,wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+    bindel=,XF86MonBrightnessUp,exec,brightnessctl -e4 -n2 set 5%+
+    bindel=,XF86MonBrightnessDown,exec,brightnessctl -e4 -n2 set 5%-
+
+    bindl=,XF86AudioNext,exec,playerctl next
+    bindl=,XF86AudioPause,exec,playerctl play-pause
+    bindl=,XF86AudioPlay,exec,playerctl play-pause
+    bindl=,XF86AudioPrev,exec,playerctl previous
+
+    bind=,Print,exec,mkdir -p ~/Pictures/screenshots && grim ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
+    bind=$mainMod,Print,exec,mkdir -p ~/Pictures/screenshots && grim -g "$(slurp)" ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
+  '';
 }
