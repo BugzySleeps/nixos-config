@@ -13,9 +13,11 @@
 
   home.packages = with pkgs; [
     firefox
+    pavucontrol
     vscode
     discord
-blender
+    audacity
+    blender
     obs-studio
     godot
     wl-clipboard
@@ -274,7 +276,7 @@ blender
 
   # ── Hyprland ──────────────────────────────────────────────────────────────
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = false;
     configType = "hyprlang";
     extraConfig = ''
       monitor=,preferred,auto,auto
