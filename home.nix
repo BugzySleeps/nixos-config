@@ -13,6 +13,7 @@
 
   home.packages = with pkgs; [
     firefox
+    ghostty
     pavucontrol
     vscode
     discord
@@ -83,38 +84,6 @@
     };
   };
 
-  # ── Kitty ─────────────────────────────────────────────────────────────────
-  programs.kitty = {
-    enable = true;
-    settings = {
-      background_opacity = "0.5";
-
-      background           = "#0d0d0d";
-      foreground           = "#e0e0e0";
-      cursor               = "#ffffff";
-      cursor_text_color    = "#0d0d0d";
-      selection_background = "#3a3a3a";
-      selection_foreground = "#e0e0e0";
-
-      color0  = "#0d0d0d";
-      color8  = "#3a3a3a";
-      color1  = "#888888";
-      color9  = "#aaaaaa";
-      color2  = "#666666";
-      color10 = "#888888";
-      color3  = "#999999";
-      color11 = "#bbbbbb";
-      color4  = "#555555";
-      color12 = "#777777";
-      color5  = "#888888";
-      color13 = "#aaaaaa";
-      color6  = "#777777";
-      color14 = "#999999";
-      color7  = "#cccccc";
-      color15 = "#e8e8e8";
-    };
-  };
-
   # ── Waybar ────────────────────────────────────────────────────────────────
   programs.waybar = {
     enable = true;
@@ -129,7 +98,7 @@
 
       modules-left = [ "ext/workspaces" ];
       modules-center = [ "clock" ];
-      modules-right = [ "cpu" "memory" "pulseaudio" "network" "battery" ];
+      modules-right = [ "cpu" "custom/sep" "memory" "custom/sep" "pulseaudio" "custom/sep" "network" "custom/sep" "battery" ];
 
       "ext/workspaces" = {
         format = "{name}";
@@ -184,29 +153,37 @@
         format-icons = [ "" "" "" "" "" ];
         tooltip-format = "{timeTo}";
       };
+
+      "custom/sep" = {
+        format = "·";
+        interval = "once";
+        tooltip = false;
+      };
     }];
 
     style = ''
       * {
-          font-family: "JetBrains Mono", "Fira Code", monospace;
+          font-family: "Noto Serif", Georgia, serif;
           font-size: 12px;
-          font-weight: 500;
+          font-weight: 400;
           border: none;
           border-radius: 0;
           min-height: 0;
       }
 
       window#waybar {
-          background: transparent;
+          background-color: rgba(212, 188, 132, 0.92);
+          border: 2px solid #7a5030;
+          box-shadow: inset 0 0 0 1px rgba(90, 56, 32, 0.30);
+          border-radius: 4px;
       }
 
       .modules-left,
       .modules-center,
       .modules-right {
-          background: rgba(13, 13, 13, 0.92);
-          border-radius: 0;
+          background: transparent;
           padding: 0 4px;
-          margin: 4px 0;
+          margin: 0;
       }
 
       #workspaces,
@@ -215,56 +192,79 @@
       #memory,
       #pulseaudio,
       #network,
-      #battery {
-          color: #cccccc;
-          padding: 0 6px;
+      #battery,
+      #custom-sep {
+          color: #2e1a08;
+          padding: 0 4px;
           margin: 2px 0;
           border-radius: 0;
-          transition: background 0.2s ease, color 0.2s ease;
+          transition: background 0.15s ease, color 0.15s ease;
       }
 
       #workspaces button {
-          color: #555555;
-          padding: 0 4px;
-          border-radius: 0;
-          transition: all 0.15s ease;
+          color: rgba(46, 26, 8, 0.35);
+          padding: 0 6px;
+          border-radius: 2px;
           background: transparent;
+          font-family: "Noto Serif", Georgia, serif;
+          font-size: 12px;
+          letter-spacing: 0.06em;
+          transition: all 0.15s ease;
       }
 
       #workspaces button.active {
-          color: #e8e8e8;
-          background: rgba(232, 232, 232, 0.12);
+          color: #1e0e02;
+          background: rgba(122, 80, 48, 0.22);
+          font-weight: 700;
       }
 
       #workspaces button:hover {
-          color: #cccccc;
-          background: rgba(255, 255, 255, 0.06);
+          color: #2e1a08;
+          background: rgba(122, 80, 48, 0.12);
       }
 
       #clock {
-          color: #e8e8e8;
-          font-weight: 600;
-          letter-spacing: 0.04em;
+          font-size: 15px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          color: #1e0e02;
+          padding: 0 8px;
       }
 
-      #clock:hover { background: rgba(255, 255, 255, 0.06); }
+      #clock::before {
+          content: "⸻ The Hour ⸻";
+          display: block;
+          font-size: 9px;
+          font-style: italic;
+          font-weight: 400;
+          letter-spacing: 0.18em;
+          opacity: 0.5;
+          margin-bottom: 1px;
+      }
 
-      #cpu { color: #aaaaaa; }
-      #cpu.warning { color: #888888; }
-      #cpu.critical { color: #cccccc; animation: pulse 1s infinite; }
+      #custom-sep {
+          color: rgba(46, 26, 8, 0.30);
+          font-size: 10px;
+          padding: 0 2px;
+          min-width: 0;
+      }
 
-      #memory { color: #aaaaaa; }
+      #cpu { color: #2e1a08; }
+      #cpu.warning { color: #8b5e2a; }
+      #cpu.critical { color: #6b2a0a; animation: pulse 1s infinite; }
 
-      #pulseaudio { color: #aaaaaa; }
-      #pulseaudio.muted { color: #444444; }
+      #memory { color: #2e1a08; }
 
-      #network { color: #aaaaaa; }
-      #network.disconnected { color: #555555; }
+      #pulseaudio { color: #2e1a08; }
+      #pulseaudio.muted { color: rgba(46, 26, 8, 0.40); }
 
-      #battery { color: #aaaaaa; }
-      #battery.warning { color: #888888; }
-      #battery.critical { color: #cccccc; }
-      #battery.charging { color: #e8e8e8; }
+      #network { color: #2e1a08; }
+      #network.disconnected { color: rgba(46, 26, 8, 0.40); }
+
+      #battery { color: #2e1a08; }
+      #battery.warning { color: #8b5e2a; }
+      #battery.critical { color: #6b2a0a; }
+      #battery.charging { color: #3a2010; }
 
       @keyframes pulse {
           0%   { opacity: 1; }
@@ -274,284 +274,113 @@
     '';
   };
 
-  # ── Hyprland ──────────────────────────────────────────────────────────────
-  wayland.windowManager.hyprland = {
-    enable = false;
-    configType = "hyprlang";
-    extraConfig = ''
-      monitor=,preferred,auto,auto
-
-      $terminal = kitty
-      $fileManager = dolphin
-      $menu = rofi -show drun
-
-      exec-once = waybar
-      exec-once = swaybg -i /home/bugzy/Pictures/wallpapers/nixos.png -m fill
-
-      env = XCURSOR_THEME,Bibata-Modern-Classic
-      env = XCURSOR_SIZE,24
-
-      general {
-          gaps_in = 5
-          gaps_out = 20
-          border_size = 2
-          col.active_border = rgba(e8e8e8ee)
-          col.inactive_border = rgba(2a2a2aaa)
-          resize_on_border = false
-          allow_tearing = false
-          layout = dwindle
-      }
-
-      decoration {
-          rounding = 0
-          rounding_power = 2
-          active_opacity = 1
-          inactive_opacity = 1
-
-          shadow {
-              enabled = true
-              range = 4
-              render_power = 3
-              color = rgba(1a1a1aee)
-          }
-
-          blur {
-              enabled = true
-              size = 3
-              passes = 1
-              vibrancy = 0.1696
-          }
-      }
-
-      animations {
-          enabled = yes, please :)
-
-          bezier = easeOutQuint,   0.23, 1,    0.32, 1
-          bezier = easeInOutCubic, 0.65, 0.05, 0.36, 1
-          bezier = linear,         0,    0,    1,    1
-          bezier = almostLinear,   0.5,  0.5,  0.75, 1
-          bezier = quick,          0.15, 0,    0.1,  1
-
-          animation = global,        1, 10,  default
-          animation = border,        1, 5.39,  easeOutQuint
-          animation = windows,       1, 4.79,  easeOutQuint
-          animation = windowsIn,     1, 4.1,   easeOutQuint, popin 87%
-          animation = windowsOut,    1, 1.49,  linear,       popin 87%
-          animation = fadeIn,        1, 1.73,  almostLinear
-          animation = fadeOut,       1, 1.46,  almostLinear
-          animation = fade,          1, 3.03,  quick
-          animation = layers,        1, 3.81,  easeOutQuint
-          animation = layersIn,      1, 4,     easeOutQuint, fade
-          animation = layersOut,     1, 1.5,   linear,       fade
-          animation = fadeLayersIn,  1, 1.79,  almostLinear
-          animation = fadeLayersOut, 1, 1.39,  almostLinear
-          animation = workspaces,    1, 1.94,  almostLinear, fade
-          animation = workspacesIn,  1, 1.21,  almostLinear, fade
-          animation = workspacesOut, 1, 1.94,  almostLinear, fade
-          animation = zoomFactor,    1, 7,     quick
-      }
-
-      dwindle {
-
-          preserve_split = true
-      }
-
-      master {
-          new_status = master
-      }
-
-      misc {
-          force_default_wallpaper = 0
-          disable_hyprland_logo = true
-      }
-
-      input {
-          kb_layout = us
-          follow_mouse = 1
-          sensitivity = 0
-          touchpad {
-              natural_scroll = false
-          }
-      }
-
-      gesture = 3, horizontal, workspace
-
-
-      $mainMod = SUPER
-
-      bind = $mainMod, Q, exec, $terminal
-      bind = $mainMod, C, killactive,
-      bind = $mainMod, M, exit,
-      bind = $mainMod, E, exec, $fileManager
-      bind = $mainMod, V, togglefloating,
-      bind = $mainMod, D, exec, $menu
-      bind = $mainMod, P, pseudo,
-
-      bind = $mainMod, F, fullscreen
-
-      bind = $mainMod, left,  movefocus, l
-      bind = $mainMod, right, movefocus, r
-      bind = $mainMod, up,    movefocus, u
-      bind = $mainMod, down,  movefocus, d
-
-      bind = $mainMod, 1, workspace, 1
-      bind = $mainMod, 2, workspace, 2
-      bind = $mainMod, 3, workspace, 3
-      bind = $mainMod, 4, workspace, 4
-      bind = $mainMod, 5, workspace, 5
-      bind = $mainMod, 6, workspace, 6
-      bind = $mainMod, 7, workspace, 7
-      bind = $mainMod, 8, workspace, 8
-      bind = $mainMod, 9, workspace, 9
-      bind = $mainMod, 0, workspace, 10
-
-      bind = $mainMod SHIFT, 1, movetoworkspace, 1
-      bind = $mainMod SHIFT, 2, movetoworkspace, 2
-      bind = $mainMod SHIFT, 3, movetoworkspace, 3
-      bind = $mainMod SHIFT, 4, movetoworkspace, 4
-      bind = $mainMod SHIFT, 5, movetoworkspace, 5
-      bind = $mainMod SHIFT, 6, movetoworkspace, 6
-      bind = $mainMod SHIFT, 7, movetoworkspace, 7
-      bind = $mainMod SHIFT, 8, movetoworkspace, 8
-      bind = $mainMod SHIFT, 9, movetoworkspace, 9
-      bind = $mainMod SHIFT, 0, movetoworkspace, 10
-
-      bind = $mainMod,       S, togglespecialworkspace, magic
-      bind = $mainMod SHIFT, S, movetoworkspace, special:magic
-
-      bind = $mainMod, mouse_down, workspace, e+1
-      bind = $mainMod, mouse_up,   workspace, e-1
-
-      bindm = $mainMod, mouse:272, movewindow
-      bindm = $mainMod, mouse:273, resizewindow
-
-      bindel = , XF86AudioRaiseVolume,  exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
-      bindel = , XF86AudioLowerVolume,  exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-      bindel = , XF86AudioMute,         exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-      bindel = , XF86AudioMicMute,      exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-      bindel = , XF86MonBrightnessUp,   exec, brightnessctl -e4 -n2 set 5%+
-      bindel = , XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
-
-      bindl = , XF86AudioNext,  exec, playerctl next
-      bindl = , XF86AudioPause, exec, playerctl play-pause
-      bindl = , XF86AudioPlay,  exec, playerctl play-pause
-      bindl = , XF86AudioPrev,  exec, playerctl previous
-
-      bind = , Print,          exec, mkdir -p ~/Pictures/screenshots && grim ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
-      bind = $mainMod, Print,  exec, mkdir -p ~/Pictures/screenshots && grim -g "$(slurp)" ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
-
-    '';
-  };
+      
+  # ── Ghostty ───────────────────────────────────────────────────────────────
+  xdg.configFile."ghostty/config".text = ''
+    background-opacity = 0
+  '';
 
   # ── MangoWC ───────────────────────────────────────────────────────────────
   xdg.configFile."mango/config.conf".text = ''
-    monitor=,preferred,auto,auto
-
     exec-once=waybar
     exec-once=swaybg -i /home/bugzy/Pictures/wallpapers/nixos.png -m fill
 
     env=XCURSOR_THEME,Bibata-Modern-Classic
     env=XCURSOR_SIZE,24
 
-    general {
-        gaps_in=5
-        gaps_out=20
-        border_width=2
-        active_border_color=#e8e8e8
-        inactive_border_color=#2a2a2a
-    }
+    # Gaps
+    gappih=5
+    gappiv=5
+    gappoh=20
+    gappov=20
 
-    decoration {
-        rounding=0
-        blur {
-            enabled=true
-            size=3
-            passes=1
-        }
-        shadow {
-            enabled=true
-            range=4
-            color=#1a1a1a
-        }
-    }
+    # Borders
+    borderpx=2
+    focuscolor=0xffffffff
+    bordercolor=0x262625ff
 
-    animations {
-        enabled=true
-    }
+    # Decoration
+    border_radius=5
+    blur=10
+    blur_params_num_passes=4
+    blur_params_radius=3
+    shadows=1
+    shadows_size=4
+    shadowscolor=0x1a1a1aff
 
-    input {
-        kb_layout=us
-        follow_mouse=1
-        sensitivity=0
-        touchpad {
-            natural_scroll=false
-        }
-    }
+    # Animations
+    animations=1
 
-    $mainMod=SUPER
+    # Input
+    xkb_rules_layout=us
+    sloppyfocus=1
+    trackpad_natural_scrolling=0
+    cursor_size=24
 
-    bind=$mainMod,q,spawn,kitty
-    bind=$mainMod,c,killactive
-    bind=$mainMod,m,quit
-    bind=$mainMod,e,spawn,dolphin
-    bind=$mainMod,v,togglefloating
-    bind=$mainMod,d,spawn,rofi -show drun
-    bind=$mainMod,f,fullscreen
+    bind=SUPER,r,reload_config
+    bind=SUPER,q,spawn,ghostty
+    bind=SUPER,c,killclient
+    bind=SUPER,m,quit
+    bind=SUPER,e,spawn,dolphin
+    bind=SUPER,v,togglefloating
+    bind=SUPER,d,spawn,rofi -show drun
+    bind=SUPER,f,togglefullscreen
 
-    bind=$mainMod,left,movefocus,l
-    bind=$mainMod,right,movefocus,r
-    bind=$mainMod,up,movefocus,u
-    bind=$mainMod,down,movefocus,d
+    bind=SUPER,left,focusdir,left
+    bind=SUPER,right,focusdir,right
+    bind=SUPER,up,focusdir,up
+    bind=SUPER,down,focusdir,down
 
-    bind=$mainMod SHIFT,t,setlayout,master
-    bind=$mainMod SHIFT,g,setlayout,grid
-    bind=$mainMod SHIFT,m,setlayout,monocle
-    bind=$mainMod SHIFT,d,setlayout,deck
+    bind=SUPER+SHIFT,t,setlayout,master
+    bind=SUPER+SHIFT,g,setlayout,grid
+    bind=SUPER+SHIFT,m,setlayout,monocle
+    bind=SUPER+SHIFT,d,setlayout,deck
+    bind=SUPER+SHIFT,r,setlayout,scroller
 
-    bind=$mainMod,1,workspace,1
-    bind=$mainMod,2,workspace,2
-    bind=$mainMod,3,workspace,3
-    bind=$mainMod,4,workspace,4
-    bind=$mainMod,5,workspace,5
-    bind=$mainMod,6,workspace,6
-    bind=$mainMod,7,workspace,7
-    bind=$mainMod,8,workspace,8
-    bind=$mainMod,9,workspace,9
-    bind=$mainMod,0,workspace,10
+    bind=SUPER,1,view,1,0
+    bind=SUPER,2,view,2,0
+    bind=SUPER,3,view,3,0
+    bind=SUPER,4,view,4,0
+    bind=SUPER,5,view,5,0
+    bind=SUPER,6,view,6,0
+    bind=SUPER,7,view,7,0
+    bind=SUPER,8,view,8,0
+    bind=SUPER,9,view,9,0
+    bind=SUPER,0,view,10,0
 
-    bind=$mainMod SHIFT,1,movetoworkspace,1
-    bind=$mainMod SHIFT,2,movetoworkspace,2
-    bind=$mainMod SHIFT,3,movetoworkspace,3
-    bind=$mainMod SHIFT,4,movetoworkspace,4
-    bind=$mainMod SHIFT,5,movetoworkspace,5
-    bind=$mainMod SHIFT,6,movetoworkspace,6
-    bind=$mainMod SHIFT,7,movetoworkspace,7
-    bind=$mainMod SHIFT,8,movetoworkspace,8
-    bind=$mainMod SHIFT,9,movetoworkspace,9
-    bind=$mainMod SHIFT,0,movetoworkspace,10
+    bind=SUPER+SHIFT,1,tag,1,0
+    bind=SUPER+SHIFT,2,tag,2,0
+    bind=SUPER+SHIFT,3,tag,3,0
+    bind=SUPER+SHIFT,4,tag,4,0
+    bind=SUPER+SHIFT,5,tag,5,0
+    bind=SUPER+SHIFT,6,tag,6,0
+    bind=SUPER+SHIFT,7,tag,7,0
+    bind=SUPER+SHIFT,8,tag,8,0
+    bind=SUPER+SHIFT,9,tag,9,0
+    bind=SUPER+SHIFT,0,tag,10,0
 
-    bind=$mainMod,s,togglespecialworkspace,magic
-    bind=$mainMod SHIFT,s,movetoworkspace,special:magic
+    bind=SUPER,s,toggle_scratchpad
+    bind=SUPER+SHIFT,s,toggle_scratchpad
 
-    bind=$mainMod,mouse_down,workspace,e+1
-    bind=$mainMod,mouse_up,workspace,e-1
+    axisbind=SUPER,DOWN,viewtoright_have_client
+    axisbind=SUPER,UP,viewtoleft_have_client
 
-    mousebind=$mainMod,btn_left,moveresize,curmove
-    mousebind=$mainMod,btn_right,moveresize,curresize
+    mousebind=SUPER,btn_left,moveresize,curmove
+    mousebind=SUPER,btn_right,moveresize,curresize
 
-    bindel=,XF86AudioRaiseVolume,exec,wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
-    bindel=,XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-    bindel=,XF86AudioMute,exec,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-    bindel=,XF86AudioMicMute,exec,wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-    bindel=,XF86MonBrightnessUp,exec,brightnessctl -e4 -n2 set 5%+
-    bindel=,XF86MonBrightnessDown,exec,brightnessctl -e4 -n2 set 5%-
+    bind=NONE,XF86AudioRaiseVolume,spawn,wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+    bind=NONE,XF86AudioLowerVolume,spawn,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+    bind=NONE,XF86AudioMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+    bind=NONE,XF86AudioMicMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+    bind=NONE,XF86MonBrightnessUp,spawn,brightnessctl -e4 -n2 set 5%+
+    bind=NONE,XF86MonBrightnessDown,spawn,brightnessctl -e4 -n2 set 5%-
 
-    bindl=,XF86AudioNext,exec,playerctl next
-    bindl=,XF86AudioPause,exec,playerctl play-pause
-    bindl=,XF86AudioPlay,exec,playerctl play-pause
-    bindl=,XF86AudioPrev,exec,playerctl previous
+    bindl=NONE,XF86AudioNext,spawn,playerctl next
+    bindl=NONE,XF86AudioPause,spawn,playerctl play-pause
+    bindl=NONE,XF86AudioPlay,spawn,playerctl play-pause
+    bindl=NONE,XF86AudioPrev,spawn,playerctl previous
 
-    bind=,Print,exec,mkdir -p ~/Pictures/screenshots && grim ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
-    bind=$mainMod,Print,exec,mkdir -p ~/Pictures/screenshots && grim -g "$(slurp)" ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
+    bind=NONE,Print,spawn_shell,mkdir -p ~/Pictures/screenshots && grim ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
+    bind=SUPER,Print,spawn_shell,mkdir -p ~/Pictures/screenshots && grim -g "$(slurp)" ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
   '';
 }
