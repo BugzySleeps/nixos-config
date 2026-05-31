@@ -107,7 +107,7 @@
       };
 
       clock = {
-        format = "{:%H:%M}";
+        format = "⸻ {:%H:%M}";
         format-alt = "{:%a, %b %d}";
         tooltip-format = "<tt>{calendar}</tt>";
       };
@@ -226,17 +226,6 @@
           letter-spacing: 0.06em;
           color: #1e0e02;
           padding: 0 8px;
-      }
-
-      #clock::before {
-          content: "⸻ The Hour ⸻";
-          display: block;
-          font-size: 9px;
-          font-style: italic;
-          font-weight: 400;
-          letter-spacing: 0.18em;
-          opacity: 0.5;
-          margin-bottom: 1px;
       }
 
       #custom-sep {
