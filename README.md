@@ -1,12 +1,13 @@
+<img width="1920" height="1080" alt="nixos" src="https://github.com/user-attachments/assets/595a2361-a84e-43f2-80ae-8a1d8aa75566" />
 # nixos-config
 
-Bugzy's NixOS configuration — Hyprland desktop on nixos-unstable with Home Manager.
+My NixOS configuration — Mangowc DE on nixos.
 
 ## Stack
 
 | Component | Choice |
 |---|---|
-| WM | Hyprland (Wayland) |
+| WM | Mangowc (Wayland Compositor) |
 | Bar | Waybar |
 | Terminal | Kitty |
 | Launcher | Rofi |
@@ -23,7 +24,7 @@ Bugzy's NixOS configuration — Hyprland desktop on nixos-unstable with Home Man
 ├── flake.lock
 ├── configuration.nix       # System config: boot, networking, fonts, greetd
 ├── hardware-configuration.nix
-└── home.nix                # User config: packages, kitty, waybar, hyprland, git
+└── home.nix                # User config: packages, kitty, waybar, mangowc, git
 ```
 
 Home Manager is integrated as a NixOS module, so a single command applies everything.
@@ -32,16 +33,4 @@ Home Manager is integrated as a NixOS module, so a single command applies everyt
 
 ```bash
 sudo nixos-rebuild switch --flake ~/.config/nixos#nixos
-```
-
-To test without making it permanent (reverts on reboot):
-
-```bash
-sudo nixos-rebuild test --flake ~/.config/nixos#nixos
-```
-
-To update packages:
-
-```bash
-nix flake update ~/.config/nixos
 ```
