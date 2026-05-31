@@ -329,7 +329,7 @@
 
     # Decoration
     border_radius=5
-    blur=10
+    blur=1
     blur_params_num_passes=4
     blur_params_radius=3
     shadows=1
@@ -359,7 +359,7 @@
     bind=SUPER,up,focusdir,up
     bind=SUPER,down,focusdir,down
 
-    bind=SUPER+SHIFT,t,setlayout,master
+    bind=SUPER+SHIFT,t,setlayout,tile
     bind=SUPER+SHIFT,g,setlayout,grid
     bind=SUPER+SHIFT,m,setlayout,monocle
     bind=SUPER+SHIFT,d,setlayout,deck
