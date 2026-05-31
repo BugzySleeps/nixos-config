@@ -267,6 +267,26 @@
   # ── Ghostty ───────────────────────────────────────────────────────────────
   xdg.configFile."ghostty/config".text = ''
     background-opacity = 0
+    foreground = #2e1a08
+    cursor-color = #2e1a08
+    selection-background = #c8a96e
+    selection-foreground = #2e1a08
+    palette = 0=#2e1a08
+    palette = 1=#2e1a08
+    palette = 2=#2e1a08
+    palette = 3=#2e1a08
+    palette = 4=#2e1a08
+    palette = 5=#2e1a08
+    palette = 6=#2e1a08
+    palette = 7=#2e1a08
+    palette = 8=#2e1a08
+    palette = 9=#2e1a08
+    palette = 10=#2e1a08
+    palette = 11=#2e1a08
+    palette = 12=#2e1a08
+    palette = 13=#2e1a08
+    palette = 14=#2e1a08
+    palette = 15=#2e1a08
   '';
 
   # ── MangoWC ───────────────────────────────────────────────────────────────
