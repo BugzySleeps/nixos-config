@@ -52,7 +52,6 @@
     jetbrains-mono
     swaybg
     claude-code
-    fastfetch
     neovim
     cmatrix
     cava
@@ -67,6 +66,26 @@
     openssl
     python3
   ];
+
+  # ── Fastfetch ─────────────────────────────────────────────────────────────
+  programs.fastfetch = {
+    enable = true;
+    settings = {
+      logo = {
+        source = "nixos_small";
+        padding.right = 2;
+      };
+      modules = [
+        "title"
+        "separator"
+        { type = "os";       key = "OS";      }
+        { type = "kernel";   key = "Kernel";  }
+        { type = "uptime";   key = "Uptime";  }
+        { type = "shell";    key = "Shell";   }
+        "separator"
+      ];
+    };
+  };
 
   # ── Shell ─────────────────────────────────────────────────────────────────
   programs.bash = {

@@ -10,6 +10,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.extraModulePackages = [ config.boot.kernelPackages.rtl8821ce ];
+  boot.kernelModules = [ "8821ce" ];
+  boot.blacklistedKernelModules = [ "rtw88_8821ce" "rtw88_pci" "rtw88_core" ];
 
   # ── Networking ────────────────────────────────────────────────────────────
   networking.hostName = "nixos";
@@ -55,6 +57,7 @@
     vim
     wget
     git
+    mangowc
   ];
 
   # ── Fonts ─────────────────────────────────────────────────────────────────
@@ -70,6 +73,7 @@
 
   # ── Programs ──────────────────────────────────────────────────────────────
   programs.hyprland.enable = true;
+  programs.mangowc.enable = true;
 
   # ── iOS sideloading ───────────────────────────────────────────────────────
   services.usbmuxd.enable = true;
@@ -78,7 +82,7 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "start-hyprland";
+      command = "mango";
       user = "bugzy";
     };
   };
