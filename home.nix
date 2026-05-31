@@ -173,6 +173,9 @@
 
       window#waybar {
           background-color: rgba(212, 188, 132, 0.92);
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+          background-size: 300px 300px;
+          background-repeat: repeat;
           border: 2px solid #7a5030;
           box-shadow: inset 0 0 0 1px rgba(90, 56, 32, 0.30);
           border-radius: 4px;
