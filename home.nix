@@ -192,8 +192,7 @@
       #memory,
       #pulseaudio,
       #network,
-      #battery,
-      #custom-sep {
+      #battery {
           color: #2e1a08;
           padding: 0 4px;
           margin: 2px 0;
@@ -206,8 +205,6 @@
           padding: 0 6px;
           border-radius: 2px;
           background: transparent;
-          font-family: "Noto Serif", Georgia, serif;
-          font-size: 12px;
           letter-spacing: 0.06em;
           transition: all 0.15s ease;
       }
