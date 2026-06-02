@@ -285,6 +285,7 @@
       
   # ── Ghostty ───────────────────────────────────────────────────────────────
   xdg.configFile."ghostty/config".text = ''
+    confirm-close-surface=false
     background-opacity = 0
     foreground = #2e1a08
     cursor-color = #2e1a08
