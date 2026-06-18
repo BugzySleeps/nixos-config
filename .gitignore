@@ -1,0 +1,17 @@
+# This git repo is rooted at ~/.config, which holds lots of unrelated (and
+# sometimes sensitive) app data. Ignore everything by default and only track
+# the NixOS configuration, so nothing private is ever accidentally published.
+/*
+!/.gitignore
+!/README.md
+!/nixos.png
+!/nixos/
+
+# Within the nixos/ tree, keep editor/build cruft out.
+nixos/home.nix.save
+nixos/result
+nixos/result-*
+
+# Video wallpapers are too large for GitHub (the .mp4 files exceed the 100MB
+# per-file limit). Track image wallpapers only.
+nixos/wallpapers/*.mp4
