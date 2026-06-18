@@ -1,5 +1,6 @@
 # nixos-config
-<img width="1365" height="768" alt="20260531_154149" src="https://github.com/user-attachments/assets/2c6b05e1-2187-4af8-a2e0-56483e41cd8c" />
+<img width="1920" height="1080" alt="20260618_142906" src="https://github.com/user-attachments/assets/31486455-0102-44a4-8151-601cbd422ad1" />
+
 
 My NixOS configuration — Mangowc DE on nixos.
 
