@@ -21,19 +21,18 @@ My NixOS configuration — Mangowc DE on nixos.
 
 ```
 nixos/
-├── flake.nix               # Inputs (nixos-unstable + home-manager) + per-host outputs
+├── flake.nix               # Inputs: nixos-unstable + home-manager
 ├── flake.lock              # Pinned input revisions — reproducible across machines
-├── configuration.nix       # Shared system config: boot, networking, fonts, greetd
-├── home.nix                # Shared user config: packages, kitty, waybar, mangowc, git
-└── hosts/
-    └── nixos/              # Per-machine config
-        ├── default.nix     # hostname + hardware-specific bits (e.g. WiFi driver)
-        └── hardware-configuration.nix
+├── configuration.nix       # System config: boot, networking, fonts, greetd
+├── home.nix                # User config: packages, kitty, waybar, mangowc, git
+└── hardware-configuration.nix   # Machine-specific (disk UUIDs, kernel modules)
 ```
 
-Anything hardware-bound (disk UUIDs, WiFi drivers, hostname) lives under
-`hosts/<name>/`; everything shared lives at the top level. Home Manager is
-integrated as a NixOS module, so a single command applies everything.
+`hardware-configuration.nix` is tracked (Nix flakes only see git-tracked
+files), but it is machine-specific. On each machine, regenerate it locally —
+that shows up as a local change, which Nix uses automatically. **Don't push
+that change**, so the other machine keeps its own. Home Manager is integrated as
+a NixOS module, so a single command applies everything.
 
 ## Applying changes
 
@@ -41,16 +40,11 @@ integrated as a NixOS module, so a single command applies everything.
 sudo nixos-rebuild switch --flake ~/.config/nixos#nixos
 ```
 
-## Adding a new machine
+## Setting up on a new machine
 
-1. On the new machine, generate its hardware config:
-   ```bash
-   nixos-generate-config --show-hardware-config > nixos/hosts/<name>/hardware-configuration.nix
-   ```
-2. Create `nixos/hosts/<name>/default.nix` (copy `hosts/nixos/default.nix`, set
-   `networking.hostName = "<name>";` and adjust any hardware-specific options).
-3. Register it in `flake.nix` under `nixosConfigurations`:
-   ```nix
-   <name> = mkHost "<name>";
-   ```
-4. Build it: `sudo nixos-rebuild switch --flake ~/.config/nixos#<name>`
+```bash
+git clone git@github.com:BugzySleeps/nixos-config.git ~/.config
+# Overwrite with THIS machine's hardware config (don't reuse the committed one):
+nixos-generate-config --show-hardware-config > ~/.config/nixos/hardware-configuration.nix
+sudo nixos-rebuild boot --flake ~/.config/nixos#nixos && sudo reboot
+```

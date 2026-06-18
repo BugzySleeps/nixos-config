@@ -1,9 +1,8 @@
 { config, pkgs, inputs, ... }:
 
-# Shared system config — applies to every host. Anything hardware-specific
-# (disk layout, WiFi drivers, hostname) lives in ./hosts/<name>/ instead.
 {
   imports = [
+    ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
   ];
 
@@ -28,6 +27,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # WiFi: Realtek RTL8821CE (this laptop only — harmless/unused on other
+  # machines, e.g. the T440 uses Intel iwlwifi). Remove if neither machine
+  # needs it.
+  boot.extraModulePackages = [ config.boot.kernelPackages.rtl8821ce ];
+  boot.kernelModules = [ "8821ce" ];
+  boot.blacklistedKernelModules = [ "rtw88_8821ce" "rtw88_pci" "rtw88_core" ];
+
   hardware.graphics = {
   enable = true;
   enable32Bit = true;
@@ -40,7 +46,7 @@
   xdg.portal.enable = true;
   services.flatpak.enable = true;
   # ── Networking ────────────────────────────────────────────────────────────
-  # hostName is set per-host in ./hosts/<name>/default.nix
+  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
   # ── Locale & Time ─────────────────────────────────────────────────────────
